@@ -1,6 +1,6 @@
 "use client";
-import { Modal } from "@/components/funcionario/Modal";
-import { TableFunconario } from "@/components/funcionario/tableFunconario";
+import { Modal } from "@/components/dashboard/funcionario/Modal";
+import { TableFunconario } from "@/components/dashboard/funcionario/tableFunconario";
 import { InputComponent } from "@/components/Input";
 import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";

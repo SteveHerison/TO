@@ -1,6 +1,6 @@
 import { X } from "lucide-react";
-import { InputComponent } from "../Input";
-import { Button } from "../ui/button";
+import { InputComponent } from "../../Input";
+import { Button } from "../../ui/button";
 
 type NavItemsProps = {
   onItemClick?: () => void;

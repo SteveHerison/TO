@@ -1,4 +1,4 @@
-import CalendarApp from "@/components/Calendar";
+import CalendarApp from "@/components/dashboard/Calendar";
 
 export default function DashboardGeralPage() {
   return (
