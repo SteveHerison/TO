@@ -4,7 +4,8 @@ import { NavItems } from "@/components/dashboard/nav-items";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { PanelLeftOpen, PanelRightOpen } from "lucide-react";
-import { ReactNode, useState } from "react";
+import Image from "next/image";
+import { ReactNode, useRef, useState } from "react";
 
 type DashboardLayoutProps = {
   children: ReactNode;
@@ -12,6 +13,7 @@ type DashboardLayoutProps = {
 
 export default function Layout({ children }: DashboardLayoutProps) {
   const [showAside, setShowAside] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div
@@ -38,7 +40,7 @@ export default function Layout({ children }: DashboardLayoutProps) {
           <div className="h-full flex flex-col justify-between w-full">
             <div className="flex flex-col gap-10">
               <div className="w-full h-20 flex items-center justify-center border-b border-black/5">
-                <h1>logo</h1>
+                {!fileInputRef ? <Image src="" alt="Foto de perfil" /> : "Foto"}
               </div>
 
               <NavItems onItemClick={() => setShowAside(false)} />

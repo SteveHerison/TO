@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 
 export const Header = () => {
   return (
-    <header className="h-24 flex items-center container mx-auto">
+    <header className="h-24 flex items-center container mx-auto px-2">
       <div className="flex w-full items-center justify-between">
         <h1>Header</h1>
 

@@ -1,26 +1,39 @@
+import React from "react";
 import { Input } from "../ui/input";
+import clsx from "clsx";
+import { useController, UseControllerProps } from "react-hook-form";
+import { InputProps } from "@/types/inputRegister";
 
-type inputProps = {
-  type?: string;
-  name?: string;
-  id?: string;
-  label?: string;
-  place?: string;
-};
+import { UserFormData } from "@/schemas/userShema";
 
-export const InputComponent = ({
-  type,
-  label,
-  place,
-  id,
-  name,
-}: inputProps) => {
+// Tipo combinado: props do React Hook Form + props personalizados
+type InputComponentProps = UseControllerProps<UserFormData> & InputProps;
+
+export const InputComponent = (props: InputComponentProps) => {
+  const { field, fieldState } = useController(props);
+
   return (
-    <>
-      <label htmlFor="" className="w-full">
-        {label}
-        <Input type={type} placeholder={place} id={id} name={name} />
-      </label>
-    </>
+    <div className="w-full ">
+      {props.label && (
+        <label htmlFor={props.name} className="block text-sm font-medium">
+          {props.label}
+        </label>
+      )}
+      <Input
+        {...field}
+        value={field.value ?? ""}
+        id={props.id || props.name}
+        placeholder={props.place}
+        type={props.type || "text"}
+        className={clsx("mt-1", {
+          "border-red-500 focus-visible:ring-red-500": fieldState.invalid,
+        })}
+      />
+      {fieldState.error?.message && (
+        <p className="text-red-500 text-sm mt-1">{fieldState.error.message}</p>
+      )}
+    </div>
   );
 };
+
+InputComponent.displayName = "InputComponent";
