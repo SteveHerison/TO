@@ -12,6 +12,7 @@ import {
 } from "react-icons/md";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import LogoutButton from "./LogoutButton";
 
 type NavItemsProps = {
   onItemClick?: () => void;
@@ -21,7 +22,7 @@ export const NavItems = ({ onItemClick }: NavItemsProps) => {
   const pathname = usePathname();
 
   const navItems = [
-    { label: "Home", icon: MdHomeWork, path: "/dashboard/geral" },
+    { label: "Home", icon: MdHomeWork, path: "/dashboard" },
     { label: "Funcionários", icon: MdPeople, path: "/dashboard/funcionarios" },
     { label: "Pacientes", icon: MdPerson, path: "/dashboard/pacientes" },
     { label: "Agenda", icon: MdEvent, path: "/dashboard/agenda" },
@@ -57,6 +58,7 @@ export const NavItems = ({ onItemClick }: NavItemsProps) => {
           </Link>
         );
       })}
+      <LogoutButton />
     </nav>
   );
 };

@@ -1,8 +1,8 @@
 "use client";
 import { Modal } from "@/components/dashboard/funcionario/Modal";
 import { TableFunconario } from "@/components/dashboard/funcionario/tableFunconario";
-import { InputComponent } from "@/components/Input";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { CirclePlus } from "lucide-react";
 import { useState } from "react";
 
@@ -26,7 +26,7 @@ export default function Staff() {
       </div>
       <aside className="h-full border rounded-lg p-2 gap-4 flex flex-col">
         <div className="flex w-full justify-between gap-2 border p-4 rounded-lg">
-          <InputComponent type="text" place="Buscar Funcionários" />
+          <Input type="text" placeholder="Buscar Funcionários" />
           <Button>Filtrar</Button>
         </div>
         <section className="border h-full rounded-lg">

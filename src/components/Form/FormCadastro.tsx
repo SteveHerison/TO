@@ -4,14 +4,17 @@ import type { AxiosError } from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserFormData, userSchema } from "@/schemas/userShema";
 import { Button } from "../ui/button";
-import { InputComponent } from "../Input";
+import { InputComponent } from "./Inputs/InputFormCadastro";
 import Link from "next/link";
-
 import { SubmitHandler, useForm } from "react-hook-form";
 import { registerUser } from "@/services/userService";
 import { useRouter } from "next/navigation";
+import { User } from "@/types/registerUsers";
 
-export const ComponentForm = () => {
+type isSucess = {
+  setIsSucess: (value: boolean) => void;
+};
+export const FormCadastro = ({ setIsSucess }: isSucess) => {
   const router = useRouter();
 
   const { control, handleSubmit } = useForm<UserFormData>({
@@ -26,15 +29,21 @@ export const ComponentForm = () => {
     },
   });
 
-  const handleSubmitForm: SubmitHandler<UserFormData> = async (data) => {
+  const handleSubmitForm: SubmitHandler<User> = async (data) => {
     try {
       await registerUser({ data });
+
+      setIsSucess(true);
+
       setTimeout(() => {
+        setIsSucess(false);
         router.push("/login");
-      }, 2000);
+      }, 3000);
     } catch (err) {
       const error = err as AxiosError<{ error: string }>;
       if (error.response?.data?.error) {
+        console.log("Dados enviados:", data);
+
         alert(error.response.data.error);
       } else {
         console.error("Erro inesperado:", error.message);
@@ -53,6 +62,7 @@ export const ComponentForm = () => {
           name="nome"
           label="Nome"
           place="Digite seu nome"
+          autoComplete="off"
         />
 
         <InputComponent
@@ -60,6 +70,7 @@ export const ComponentForm = () => {
           name="email"
           label="E-mail"
           place="Digite seu e-mail"
+          autoComplete="off"
         />
 
         <InputComponent
@@ -67,6 +78,7 @@ export const ComponentForm = () => {
           name="cpf"
           label="CPF"
           place="Digite seu CPF"
+          autoComplete="off"
         />
 
         <InputComponent
@@ -74,6 +86,7 @@ export const ComponentForm = () => {
           name="nomeClinica"
           label="Nome da Clínica"
           place="Digite o nome da clínica"
+          autoComplete="off"
         />
 
         <InputComponent
@@ -82,6 +95,7 @@ export const ComponentForm = () => {
           label="Senha"
           place="Digite sua senha"
           type="password"
+          autoComplete="off"
         />
 
         <InputComponent
@@ -91,6 +105,7 @@ export const ComponentForm = () => {
           label="Confirmar Senha"
           place="Confirme sua senha"
           type="password"
+          autoComplete="off"
         />
 
         <Button className="w-80 mt-4" type="submit">
@@ -109,6 +124,11 @@ export const ComponentForm = () => {
           </Link>
         </div>
       </form>
+      <div className="w-full items-center flex justify-center">
+        <Link href="/" className="font-semibold pt-20">
+          Voltar para Home
+        </Link>
+      </div>
     </div>
   );
 };

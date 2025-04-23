@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { InputComponent } from "../../Input";
+import { InputComponent } from "../../Form/Inputs/InputFormCadastro";
 import { Button } from "../../ui/button";
 
 type NavItemsProps = {
