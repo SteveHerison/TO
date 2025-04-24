@@ -66,8 +66,10 @@ function DashboardLayoutUI({ children }: DashboardLayoutProps) {
       </Button>
 
       <header className="h-full border-b border-black/5 flex items-center px-6">
-        <h1 className="text-xl font-bold">Header</h1>
-        <p className="font-medium">{user?.nome ?? "Usuário"}</p>
+        <div className="flex items-center justify-between w-full">
+          <h1 className="text-xl font-bold">Header</h1>
+          <p className="font-medium">{user?.nome ?? "Usuário"}</p>
+        </div>
       </header>
 
       <main className="overflow-auto p-6 flex flex-col w-full h-full">
