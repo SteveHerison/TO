@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 import { PanelLeftOpen, PanelRightOpen } from "lucide-react";
 import Image from "next/image";
 import { ReactNode } from "react";
-import { UserContextProvider } from "@/contexts/userContext";
 import { useUser } from "@/hooks/useUser";
 
 type DashboardLayoutProps = {
@@ -15,17 +14,17 @@ type DashboardLayoutProps = {
 };
 
 export default function Layout({ children }: DashboardLayoutProps) {
-  return (
-    <UserContextProvider>
-      <DashboardLayoutUI>{children}</DashboardLayoutUI>
-    </UserContextProvider>
-  );
-}
-
-function DashboardLayoutUI({ children }: DashboardLayoutProps) {
   const [showAside, setShowAside] = useState(false);
   const { user } = useUser();
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  if (!user) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <p className="text-gray-500 text-lg">Carregando usuário...</p>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -70,7 +69,13 @@ function DashboardLayoutUI({ children }: DashboardLayoutProps) {
         <header className="h-full border-b border-black/5 flex items-center px-6 pt-10">
           <div className="flex items-center justify-between w-full">
             <h1 className="text-xl font-bold">Header</h1>
-            <p className="font-medium">{user?.nome ?? "Usuário"}</p>
+            <p className="font-medium">
+              {user?.clinic?.nome ? (
+                user.clinic.nome
+              ) : (
+                <span className="animate-pulse">Carregando clínica...</span>
+              )}
+            </p>
           </div>
         </header>
       </div>

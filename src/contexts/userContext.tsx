@@ -1,6 +1,8 @@
+"use client";
+
+import React, { createContext, useEffect, useState } from "react";
 import { Api } from "@/providers";
 import { User } from "@/types/registerUsers";
-import React, { createContext, useEffect, useState } from "react";
 
 type IUserContext = {
   user: User | null;
@@ -17,16 +19,14 @@ export function UserContextProvider({
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const fetchUser = async () => {
+    async function fetchUser() {
       try {
-        const res = await Api.get("/me", { withCredentials: true });
-        if (res.data?.user) {
-          setUser(res.data.user);
-        }
-      } catch (error) {
-        console.error("Erro ao buscar usuário:", error);
+        const response = await Api.get("/me");
+        setUser(response.data);
+      } catch (err) {
+        console.error("Erro ao buscar o usuário:", err);
       }
-    };
+    }
 
     fetchUser();
   }, []);

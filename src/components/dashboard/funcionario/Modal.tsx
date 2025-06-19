@@ -50,7 +50,7 @@ export const Modal = ({ onItemClick }: NavItemsProps) => {
     <div className="fixed inset-0 flex items-center justify-center z-50 p-2">
       <div className="absolute inset-0 bg-black/30 backdrop-blur-xs" />
 
-      <section className="relative w-full py-4 max-w-4xl h-full bg-white shadow-2xl rounded-lg p-2 z-50 flex flex-col gap-6 overflow-y-auto">
+      <section className="relative w-full py-4 max-w-4xl  bg-white shadow-2xl rounded-lg p-2 z-50 flex flex-col gap-6 ">
         <X
           className="absolute right-2 top-2 w-10 h-10 cursor-pointer"
           onClick={onItemClick}
@@ -60,9 +60,76 @@ export const Modal = ({ onItemClick }: NavItemsProps) => {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full h-full border p-2 rounded-lg flex flex-col gap-5"
+          className="w-full h-full border p-2 rounded-lg flex flex-col gap-3 overflow-y-auto"
         >
-          {inputFields.map((field) => (
+          {/* Renderiza os primeiros 4 campos normalmente (nome, email, cpf, telefone) */}
+          {inputFields.slice(0, 4).map((field) => (
+            <label key={field.id} className="flex flex-col gap-1">
+              {field.label}
+              <Input
+                type={field.type}
+                placeholder={field.place}
+                {...register(field.id as keyof FuncionarioFormData)}
+              />
+              {errors[field.id as keyof FuncionarioFormData] && (
+                <span className="text-sm text-red-500">
+                  {errors[
+                    field.id as keyof FuncionarioFormData
+                  ]?.message?.toString()}
+                </span>
+              )}
+            </label>
+          ))}
+
+          {/* Renderiza cargo e especialidade lado a lado */}
+          <div className="flex gap-4">
+            {inputFields.slice(4, 6).map((field) => (
+              <label key={field.id} className="flex flex-col gap-1 w-1/2">
+                {field.label}
+                <Input
+                  type={field.type}
+                  placeholder={field.place}
+                  {...register(field.id as keyof FuncionarioFormData)}
+                />
+                {errors[field.id as keyof FuncionarioFormData] && (
+                  <span className="text-sm text-red-500">
+                    {errors[
+                      field.id as keyof FuncionarioFormData
+                    ]?.message?.toString()}
+                  </span>
+                )}
+              </label>
+            ))}
+          </div>
+
+          {/* Renderiza endereço e cep lado a lado */}
+          <div className="flex gap-4">
+            {inputFields.slice(6, 8).map((field, index) => (
+              <label
+                key={field.id}
+                className={`flex flex-col gap-1 ${
+                  index === 0 ? "w-3/4" : "w-1/4"
+                }`}
+              >
+                {field.label}
+                <Input
+                  type={field.type}
+                  placeholder={field.place}
+                  {...register(field.id as keyof FuncionarioFormData)}
+                />
+                {errors[field.id as keyof FuncionarioFormData] && (
+                  <span className="text-sm text-red-500">
+                    {errors[
+                      field.id as keyof FuncionarioFormData
+                    ]?.message?.toString()}
+                  </span>
+                )}
+              </label>
+            ))}
+          </div>
+
+          {/* Renderiza os últimos campos normalmente (cidade, estado) */}
+          {inputFields.slice(8).map((field) => (
             <label key={field.id} className="flex flex-col gap-1">
               {field.label}
               <Input

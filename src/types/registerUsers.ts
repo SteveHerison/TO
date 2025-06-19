@@ -8,4 +8,15 @@ export type User = {
   nomeClinica: string;
   password: string;
   passwordConfirm: string;
+  clinicId?: number | null;
+  clinic?: Clinic | null;
 };
+export interface Clinic {
+  id: number;
+  nome: string;
+  cnpj?: string | null;
+  emailClinic?: string | null;
+  enderecoCompleto?: string | null;
+  planId: number;
+  donoId: number;
+}

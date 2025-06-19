@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { Button } from "../ui/button";
 import {
@@ -13,8 +14,7 @@ import {
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import LogoutButton from "./LogoutButton";
-import { UserContext } from "@/contexts/userContext";
-import { useContext } from "react";
+import { useUser } from "@/hooks/useUser";
 
 type NavItemsProps = {
   onItemClick?: () => void;
@@ -22,7 +22,7 @@ type NavItemsProps = {
 
 export const NavItems = ({ onItemClick }: NavItemsProps) => {
   const pathname = usePathname();
-  const { user } = useContext(UserContext)!;
+  const { user } = useUser();
 
   const navItems = [
     {
@@ -68,8 +68,9 @@ export const NavItems = ({ onItemClick }: NavItemsProps) => {
       roles: ["ADMIN"],
     },
   ];
+
   const filteredNavItems = navItems.filter(
-    (item) => user?.tipo !== undefined && item.roles.includes(user.tipo)
+    (item) => user?.tipo && item.roles.includes(user.tipo)
   );
 
   return (

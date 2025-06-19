@@ -34,12 +34,19 @@ export const FormCadastro = ({ setIsSucess }: isSucess) => {
   });
 
   const selectedPlanId = watch("planId");
-  const handleSubmitForm: SubmitHandler<User> = async (data) => {
+  const handleSubmitForm: SubmitHandler<UserFormData> = async (data) => {
     try {
-      await registerUser({ data });
+      // Mapeia os dados do formulário para o tipo User esperado na API
+      const userPayload: User = {
+        ...data,
+        tipo: "ADMIN", // adicionando campo esperado
+        nomeClinica: data.clinicNome,
+        passwordConfirm: data.confirmpassword,
+      };
+
+      await registerUser({ data: userPayload });
 
       setIsSucess(true);
-
       setTimeout(() => {
         setIsSucess(false);
         router.push("/login");
@@ -48,7 +55,6 @@ export const FormCadastro = ({ setIsSucess }: isSucess) => {
       const error = err as AxiosError<{ error: string }>;
       if (error.response?.data?.error) {
         console.log("Dados enviados:", data);
-
         alert(error.response.data.error);
       } else {
         console.error("Erro inesperado:", error.message);
