@@ -19,7 +19,40 @@ export const ShowModalAgendar = ({
         <h2 className="text-xl font-semibold mb-4">ModalSucesso</h2>
         <div>
           <form action="">
-            <Input />
+            <div className="flex flex-col gap-2">
+              <label htmlFor="" className="my-2">
+                <p>Paciente</p>
+                <Input placeholder="Nome do paciente" />
+              </label>
+              <label htmlFor="" className="my-2">
+                <p>Atendimento</p>
+                <Input placeholder="Tipo do atendimento" />
+              </label>
+
+              <label htmlFor="" className="my-2">
+                <span className="flex items-center">
+                  <p className="flex items-center">Funcionário.</p>
+                  <p className="text-sm">Opc</p>
+                </span>
+                <Input placeholder="Quem vai atender?" />
+              </label>
+            </div>
+
+            <div className="flex gap-2 my-2 w-full">
+              <label htmlFor="" className="w-full">
+                <p>Endereço</p>
+                <Input placeholder="Rua/Av Exemplo" />
+              </label>
+
+              <label htmlFor="" className="">
+                Numero
+                <Input />
+              </label>
+            </div>
+            <label htmlFor="" className="">
+              Cep
+              <Input />
+            </label>
           </form>
         </div>
       </div>

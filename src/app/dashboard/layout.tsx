@@ -35,13 +35,6 @@ function DashboardLayoutUI({ children }: DashboardLayoutProps) {
       )}
     >
       {showAside && (
-        <div
-          className="fixed inset-0 bg-black/20 z-40 md:bg-transparent"
-          onClick={() => setShowAside(false)}
-        />
-      )}
-
-      {showAside && (
         <aside className="md:row-span-2 md:w-full w-64 sm:w-72 h-full md:relative flex-col items-center border-r border-black/5 absolute bg-emerald-50 z-50">
           <div className="h-full flex flex-col justify-between w-full">
             <div className="flex flex-col gap-10">
@@ -64,14 +57,23 @@ function DashboardLayoutUI({ children }: DashboardLayoutProps) {
         {!showAside ? "Navegador" : "Fechar navegador"}
         {!showAside ? <PanelLeftOpen /> : <PanelRightOpen />}
       </Button>
-
-      <header className="h-full border-b border-black/5 flex items-center px-6">
-        <div className="flex items-center justify-between w-full">
-          <h1 className="text-xl font-bold">Header</h1>
-          <p className="font-medium">{user?.nome ?? "Usuário"}</p>
+      <div>
+        <div className="fixed flex items-center justify-center bg-black text-white top-0 left-0 w-full p-1">
+          <div className="flex items-center gap-1">
+            <h3 className="text-lg">Você está no teste.</h3>
+            <span className="font-semibold hover:border-b cursor-pointer">
+              Faça sua compra!
+            </span>
+          </div>
         </div>
-      </header>
-
+        {showAside && <div className="" onClick={() => setShowAside(false)} />}
+        <header className="h-full border-b border-black/5 flex items-center px-6 pt-10">
+          <div className="flex items-center justify-between w-full">
+            <h1 className="text-xl font-bold">Header</h1>
+            <p className="font-medium">{user?.nome ?? "Usuário"}</p>
+          </div>
+        </header>
+      </div>
       <main className="overflow-auto p-6 flex flex-col w-full h-full">
         {children}
       </main>

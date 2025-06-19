@@ -10,13 +10,13 @@ export const TableFunconario = () => {
           <th className="text-left px-4 py-2 font-medium text-gray-600">
             Nome
           </th>
-          <th className="text-left px-4 py-2 font-medium text-gray-600">
+          <th className="text-left px-4 py-2 font-medium hidden lg:table-cell text-gray-600">
             Cargo
           </th>
-          <th className="text-left px-4 py-2 font-medium text-gray-600 hidden sm:table-cell">
+          <th className="text-left px-4 py-2 font-medium text-gray-600 hidden lg:table-cell">
             Especialidade
           </th>
-          <th className="text-left px-4 py-2 font-medium text-gray-600 hidden md:table-cell">
+          <th className="text-left px-4 py-2 font-medium text-gray-600 hidden lg:table-cell">
             E-mail
           </th>
           <th className="text-left px-4 py-2 font-medium text-gray-600 hidden lg:table-cell">
@@ -34,10 +34,10 @@ export const TableFunconario = () => {
         <tr className="border-t">
           <td className="px-4 py-2 font-semibold">Dra. Ana Silva</td>
           <td className="px-4 py-2">Terapeuta Ocupacional</td>
-          <td className="px-4 py-2 hidden sm:table-cell">
+          <td className="px-4 py-2 hidden lg:table-cell ">
             Reabilitação Neurológica
           </td>
-          <td className="px-4 py-2 hidden md:table-cell">
+          <td className="px-4 py-2 hidden lg:table-cell">
             ana.silva@clinica.com
           </td>
           <td className="px-4 py-2 hidden lg:table-cell">(11) 98765-4321</td>
@@ -46,7 +46,7 @@ export const TableFunconario = () => {
               Ativo
             </span>
           </td>
-          <td className="px-4 py-2">
+          <td className="px-4 py-2 hidden md:table-cell">
             <div className="group relative">
               <Button className="text-gray-500 hover:text-gray-700">
                 <PencilRuler />

@@ -19,7 +19,7 @@ export function UserContextProvider({
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await Api.get("/api", { withCredentials: true });
+        const res = await Api.get("/me", { withCredentials: true });
         if (res.data?.user) {
           setUser(res.data.user);
         }

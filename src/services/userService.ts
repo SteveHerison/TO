@@ -7,7 +7,7 @@ export const registerUser = async ({ data }: { data: User }) => {
     new Promise((resolve) => setTimeout(resolve, ms));
 
   await delay(1000);
-  const result = await Api.post("/users", data);
+  const result = await Api.post("/register", data);
   return result.data;
 };
 export const loginUser = async ({ data }: { data: UserLogin }) => {
@@ -15,7 +15,7 @@ export const loginUser = async ({ data }: { data: UserLogin }) => {
     new Promise((resolve) => setTimeout(resolve, ms));
 
   await delay(1000);
-  const result = await Api.post("/login", data);
+  const result = await Api.post("/session", data);
   return result.data;
 };
 export const getCurrentUser = async () => {
@@ -23,7 +23,7 @@ export const getCurrentUser = async () => {
     new Promise((resolve) => setTimeout(resolve, ms));
 
   await delay(500);
-  const result = await Api.get("/api", { withCredentials: true });
+  const result = await Api.get("/me", { withCredentials: true });
   return result.data;
 };
 

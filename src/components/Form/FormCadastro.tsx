@@ -10,25 +10,30 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { registerUser } from "@/services/userService";
 import { useRouter } from "next/navigation";
 import { User } from "@/types/registerUsers";
+import PlanCard from "../Planos/Plan";
+import { useState } from "react";
 
 type isSucess = {
   setIsSucess: (value: boolean) => void;
 };
 export const FormCadastro = ({ setIsSucess }: isSucess) => {
+  const [modalPlan, setModalPlan] = useState(false);
   const router = useRouter();
 
-  const { control, handleSubmit } = useForm<UserFormData>({
+  const { control, handleSubmit, setValue, watch } = useForm<UserFormData>({
     resolver: zodResolver(userSchema),
     defaultValues: {
       nome: "",
       email: "",
       cpf: "",
-      nomeClinica: "",
+      clinicNome: "",
+      planId: undefined,
       password: "",
-      passwordConfirm: "",
+      confirmpassword: "",
     },
   });
 
+  const selectedPlanId = watch("planId");
   const handleSubmitForm: SubmitHandler<User> = async (data) => {
     try {
       await registerUser({ data });
@@ -64,7 +69,6 @@ export const FormCadastro = ({ setIsSucess }: isSucess) => {
           place="Digite seu nome"
           autoComplete="off"
         />
-
         <InputComponent
           control={control}
           name="email"
@@ -72,7 +76,6 @@ export const FormCadastro = ({ setIsSucess }: isSucess) => {
           place="Digite seu e-mail"
           autoComplete="off"
         />
-
         <InputComponent
           control={control}
           name="cpf"
@@ -80,15 +83,13 @@ export const FormCadastro = ({ setIsSucess }: isSucess) => {
           place="Digite seu CPF"
           autoComplete="off"
         />
-
         <InputComponent
           control={control}
-          name="nomeClinica"
+          name="clinicNome"
           label="Nome da Clínica"
           place="Digite o nome da clínica"
           autoComplete="off"
         />
-
         <InputComponent
           control={control}
           name="password"
@@ -97,21 +98,30 @@ export const FormCadastro = ({ setIsSucess }: isSucess) => {
           type="password"
           autoComplete="off"
         />
-
         <InputComponent
           control={control}
-          name="passwordConfirm"
+          name="confirmpassword"
           rules={{ required: "Campo obrigatório" }}
           label="Confirmar Senha"
           place="Confirme sua senha"
           type="password"
           autoComplete="off"
         />
-
+        <div className="text-sm text-zinc-700">
+          {selectedPlanId === undefined
+            ? "Selecione Seu plano"
+            : "Plano selecionado"}{" "}
+          {selectedPlanId === undefined ? (
+            <Button type="button" onClick={() => setModalPlan(true)}>
+              Plano
+            </Button>
+          ) : (
+            <strong>{selectedPlanId}</strong>
+          )}
+        </div>
         <Button className="w-80 mt-4" type="submit">
           Cadastrar
         </Button>
-
         <div className="flex gap-2 items-center">
           <p className="text-lg font-semibold text-zinc-500">
             Já faz parte da família?
@@ -129,6 +139,24 @@ export const FormCadastro = ({ setIsSucess }: isSucess) => {
           Voltar para Home
         </Link>
       </div>
+      {modalPlan && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
+          <div className="bg-white max-h-[90vh] overflow-y-auto w-full max-w-3xl rounded-xl shadow-xl relative">
+            <button
+              onClick={() => setModalPlan(false)}
+              className="absolute top-0 right-3 text-xl font-bold text-gray-500 hover:text-red-600"
+            >
+              ×
+            </button>
+            <PlanCard
+              onSelect={(id) => {
+                setValue("planId", id);
+                setModalPlan(false);
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

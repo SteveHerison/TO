@@ -6,6 +6,7 @@ export async function GET() {
   const token = cookieStore.get("authToken")?.value;
 
   const user = token ? await verifyToken(token) : null;
+  console.log("Token recebido do cookie:", token);
 
   return new Response(
     JSON.stringify({
