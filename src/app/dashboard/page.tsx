@@ -3,11 +3,12 @@
 import CalendarApp from "@/components/dashboard/Calendar";
 import { ShowModalAgendar } from "@/components/Modal/showModalAgenda";
 import { Button } from "@/components/ui/button";
-import { UserContext } from "@/contexts/userContext";
-import { useContext, useState } from "react";
+import { useUser } from "@/hooks/useUser";
+
+import { useState } from "react";
 
 export default function DashboardGeralPage() {
-  const { user } = useContext(UserContext)!;
+  const { user } = useUser();
   const [showModalAgenda, setShowModalAgenda] = useState(false);
 
   function agendar() {

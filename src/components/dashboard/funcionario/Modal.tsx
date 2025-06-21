@@ -62,7 +62,6 @@ export const Modal = ({ onItemClick }: NavItemsProps) => {
           onSubmit={handleSubmit(onSubmit)}
           className="w-full h-full border p-2 rounded-lg flex flex-col gap-3 overflow-y-auto"
         >
-          {/* Renderiza os primeiros 4 campos normalmente (nome, email, cpf, telefone) */}
           {inputFields.slice(0, 4).map((field) => (
             <label key={field.id} className="flex flex-col gap-1">
               {field.label}
@@ -81,7 +80,6 @@ export const Modal = ({ onItemClick }: NavItemsProps) => {
             </label>
           ))}
 
-          {/* Renderiza cargo e especialidade lado a lado */}
           <div className="flex gap-4">
             {inputFields.slice(4, 6).map((field) => (
               <label key={field.id} className="flex flex-col gap-1 w-1/2">
@@ -102,7 +100,6 @@ export const Modal = ({ onItemClick }: NavItemsProps) => {
             ))}
           </div>
 
-          {/* Renderiza endereço e cep lado a lado */}
           <div className="flex gap-4">
             {inputFields.slice(6, 8).map((field, index) => (
               <label
@@ -128,7 +125,6 @@ export const Modal = ({ onItemClick }: NavItemsProps) => {
             ))}
           </div>
 
-          {/* Renderiza os últimos campos normalmente (cidade, estado) */}
           {inputFields.slice(8).map((field) => (
             <label key={field.id} className="flex flex-col gap-1">
               {field.label}

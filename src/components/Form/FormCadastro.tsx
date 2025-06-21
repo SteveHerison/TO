@@ -39,7 +39,7 @@ export const FormCadastro = ({ setIsSucess }: isSucess) => {
       // Mapeia os dados do formulário para o tipo User esperado na API
       const userPayload: User = {
         ...data,
-        tipo: "ADMIN", // adicionando campo esperado
+        tipo: "ADMIN",
         nomeClinica: data.clinicNome,
         passwordConfirm: data.confirmpassword,
       };

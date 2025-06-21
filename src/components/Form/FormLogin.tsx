@@ -10,11 +10,14 @@ import { AxiosError } from "axios";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginSchema } from "@/schemas/loginSchema";
+import { useUser } from "@/hooks/useUser";
+import { getCurrentUser } from "@/services/userService";
 
 export const FormLogin = () => {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { setUser } = useUser();
 
   const { control, handleSubmit } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -29,6 +32,9 @@ export const FormLogin = () => {
     setIsLoading(true);
     try {
       await loginUser({ data });
+
+      const currentUser = await getCurrentUser(); // pega dados do usuário
+      setUser(currentUser); // atualiza contexto imediatamente
 
       router.push("/dashboard");
     } catch (err) {
